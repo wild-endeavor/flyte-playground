@@ -47,7 +47,10 @@ class FlyteCtlTask(PythonCustomizedContainerTask[FlyteCtlConfig]):
         container_args = [
             "bash",
             "-c",
-            "flytectl {{.inputs.command}} && aws --endpoint-url http://minio.flyte:9000 s3 cp /opt/true.pb {{.outputPrefix}}/outputs.pb || aws s3 cp /opt/false.pb {{.outputPrefix}}/outputs.pb",
+            f"flytectl {{.inputs.command}} --admin.endpoint={self.task_config.admin_endpoint} "
+            f"--admin.insecure={self.task_config.insecure} "
+            "&& aws --endpoint-url http://minio.flyte:9000 s3 cp /opt/true.pb {{.outputPrefix}}/outputs.pb "
+            "|| aws s3 cp /opt/false.pb {{.outputPrefix}}/outputs.pb",
         ]
 
         return container_args

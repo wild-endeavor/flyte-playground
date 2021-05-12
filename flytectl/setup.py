@@ -2,7 +2,7 @@ from setuptools import find_packages, setup  # noqa
 
 plugin_requires = ["flytekit>=0.18.0,<1.0.0"]
 
-__version__ = "v0.1.4"
+__version__ = "v0.1.5"
 
 print(find_packages())
 
