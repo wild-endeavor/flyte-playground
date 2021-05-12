@@ -9,8 +9,9 @@ WORKDIR /tmp
 RUN curl -s https://raw.githubusercontent.com/flyteorg/flytectl/master/install.sh | bash
 RUN mv /tmp/bin/flytectl /usr/local/bin
 
-COPY true.pb /opt/true.pb
-COPY false.pb /opt/false.pb
+# These are literal maps with "success": True and False
+COPY true_map.pb /opt/true.pb
+COPY false_map.pb /opt/false.pb
 
 ENV FLYTE_INTERNAL_IMAGE=flyte_ctl_task:123
 
