@@ -52,7 +52,7 @@ class FlyteCtlTask(PythonCustomizedContainerTask[FlyteCtlConfig]):
         return container_args
 
 
-class FlyteCtlTaskExecutor(ShimTaskExecutor[SQLite3Task]):
+class FlyteCtlTaskExecutor(ShimTaskExecutor[FlyteCtlTask]):
     def execute_from_model(self, tt: task_models.TaskTemplate, **kwargs) -> typing.Any:
         # This is a mock only and will not be what is actually run in production. In production, Flyte will run
         # the container specified in the task class above, which will call out to flytectl and run a command.
