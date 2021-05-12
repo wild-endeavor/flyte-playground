@@ -1,6 +1,6 @@
 FROM python:3.8-slim-buster
 
-RUN apt-get update && apt install curl
+RUN apt-get update && apt install -y curl
 
 RUN pip install awscli
 RUN pip install gsutil
