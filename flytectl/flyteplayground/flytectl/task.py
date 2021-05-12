@@ -21,7 +21,6 @@ class FlyteCtlTask(PythonCustomizedContainerTask[FlyteCtlConfig]):
     def __init__(
         self,
         name: str,
-        # inputs: typing.Optional[typing.Dict[str, typing.Type]] = None,
         task_config: typing.Optional[FlyteCtlConfig] = None,
         **kwargs,
     ):
@@ -46,7 +45,7 @@ class FlyteCtlTask(PythonCustomizedContainerTask[FlyteCtlConfig]):
 
     def get_command(self, settings: SerializationSettings) -> typing.List[str]:
         container_args = [
-            "flytectl {{.inputs.command}} && aws cp /opt/true.pb {{.outputPrefix}} || aws cp /opt/false {{.outputPrefix}}",
+            "flytectl {{.inputs.command}} && aws cp /opt/true.pb {{.outputPrefix}}/outputs.pb || aws cp /opt/false {{.outputPrefix}}/outputs.pb",
         ]
 
         return container_args
@@ -61,17 +60,3 @@ class FlyteCtlTaskExecutor(ShimTaskExecutor[FlyteCtlTask]):
         # doesn't run Python at all, we can't supply this function with more accurate execution behavior.
 
         return True
-
-        # ctx = FlyteContext.current_context()
-        # file_ext = os.path.basename(tt.custom["uri"])
-        # local_path = os.path.join(temp_dir, file_ext)
-        # ctx.file_access.download(tt.custom["uri"], local_path)
-        # if tt.custom["compressed"]:
-        #     local_path = unarchive_file(local_path, temp_dir)
-        #
-        # print(f"Connecting to db {local_path}")
-        # interpolated_query = SQLite3Task.interpolate_query(tt.custom["query_template"], **kwargs)
-        # print(f"Interpolated query {interpolated_query}")
-        # with contextlib.closing(sqlite3.connect(local_path)) as con:
-        #     df = pd.read_sql_query(interpolated_query, con)
-        #     return df
