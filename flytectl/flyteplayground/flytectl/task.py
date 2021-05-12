@@ -46,7 +46,7 @@ class FlyteCtlTask(PythonCustomizedContainerTask[FlyteCtlConfig]):
     def get_command(self, settings: SerializationSettings) -> typing.List[str]:
         container_args = [
             "bash",
-            "-c"
+            "-c",
             "flytectl {{.inputs.command}} && aws --endpoint-url http://minio.flyte:9000 s3 cp /opt/true.pb {{.outputPrefix}}/outputs.pb || aws s3 cp /opt/false.pb {{.outputPrefix}}/outputs.pb",
         ]
 
